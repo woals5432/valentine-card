@@ -182,9 +182,9 @@ export default function ValentinePage() {
               오늘, 내 마음을 받아줄래?
             </p>
 
-            <p className="text-sm text-gray-500">
+            {/* <p className="text-sm text-gray-500">
               (대답은 "좋아"만 가능할지도 몰라 🙂)
-            </p>
+            </p> */}
           </div>
 
           <div className="flex flex-col gap-4">
