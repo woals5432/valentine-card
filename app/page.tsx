@@ -3,6 +3,37 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 
+// CSS 하트 컴포넌트
+const CSSHeart = ({ className = "" }: { className?: string }) => (
+  <div className={`relative ${className}`}>
+    <svg viewBox="0 0 32 29.6" className="w-full h-full">
+      <path
+        d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2 c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"
+        fill="currentColor"
+      />
+    </svg>
+  </div>
+);
+
+// 편지 봉투 SVG 컴포넌트
+const EnvelopeIcon = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" className={`w-full h-full ${className}`}>
+    <path
+      d="M20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4Z"
+      fill="#ff4d6d"
+      stroke="#ff4d6d"
+      strokeWidth="1.5"
+    />
+    <path
+      d="M22 6L12 13L2 6"
+      stroke="#ffffff"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 // 터지는 입자(하트/입술) 컴포넌트
 const ExplosionParticle = ({
   x,
@@ -88,9 +119,9 @@ export default function ValentinePage() {
           initial={{ scale: 0 }}
           animate={{ scale: [1, 1.15, 1] }}
           transition={{ repeat: Infinity, duration: 1.2, ease: "easeInOut" }}
-          className="text-8xl mb-8 drop-shadow-lg"
+          className="w-24 h-24 md:w-32 md:h-32 mb-8 text-[#ff4d6d] drop-shadow-2xl"
         >
-          ❤️
+          <CSSHeart />
         </motion.div>
 
         <motion.h1
@@ -99,7 +130,7 @@ export default function ValentinePage() {
           transition={{ delay: 0.3 }}
           className="text-3xl md:text-4xl font-bold text-[#ff4d6d] mb-6"
         >
-          함께해줘서 정말 고마워! 😘
+          함께해줘서 정말 고마워!
         </motion.h1>
 
         <motion.p
@@ -117,9 +148,13 @@ export default function ValentinePage() {
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.8, type: "spring" }}
-          className="mt-12 text-5xl"
+          className="mt-12 flex items-center gap-3"
         >
-          ✨👩‍❤️‍👨✨
+          <span className="text-4xl">✨</span>
+          <div className="w-12 h-12 text-pink-500">
+            <CSSHeart />
+          </div>
+          <span className="text-4xl">✨</span>
         </motion.div>
       </div>
     );
@@ -152,14 +187,21 @@ export default function ValentinePage() {
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-            className="text-7xl mb-6"
+            className="w-20 h-20 mx-auto mb-6"
           >
-            💌
+            <EnvelopeIcon />
           </motion.div>
           <p className="text-lg font-semibold text-pink-500">
             특별한 편지가 도착했어!
           </p>
-          <p className="text-sm text-gray-400 mt-2">클릭해서 열어봐 ✨</p>
+          <p className="text-sm text-gray-400 mt-2 flex items-center justify-center gap-2">
+            클릭해서 열어봐
+            <span className="inline-block w-4 h-4 text-yellow-400">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+              </svg>
+            </span>
+          </p>
         </motion.div>
       ) : (
         <motion.div
@@ -168,7 +210,13 @@ export default function ValentinePage() {
           className="z-10 bg-white/85 backdrop-blur-sm p-10 rounded-[3rem] shadow-2xl max-w-[360px] w-full border border-white"
         >
           <div className="space-y-5 text-gray-800 mb-8 text-center leading-relaxed break-keep">
-            <p className="text-pink-300 text-2xl">─── 💌 ───</p>
+            <div className="flex items-center justify-center gap-3 text-pink-300 text-xl">
+              <span>───</span>
+              <div className="w-6 h-6 text-pink-400">
+                <CSSHeart />
+              </div>
+              <span>───</span>
+            </div>
 
             <p className="text-lg">
               어쩌면 스쳐 지나갔을 수많은 순간들 사이에서,
@@ -197,13 +245,33 @@ export default function ValentinePage() {
               }}
               whileTap={{ scale: yesButtonScale * 0.95 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="w-full py-4 bg-[#ff4d6d] text-white rounded-2xl font-bold text-lg md:text-xl shadow-lg hover:bg-[#ff5c7c] transition-colors origin-center"
+              className="w-full py-4 bg-[#ff4d6d] text-white rounded-2xl font-bold text-lg md:text-xl shadow-lg hover:bg-[#ff5c7c] transition-colors origin-center flex items-center justify-center gap-2"
             >
-              {noClickCount >= 3
-                ? "제발 좋아해줘! 🥺❤️"
-                : noClickCount >= 1
-                  ? "응, 좋아! ❤️❤️"
-                  : "응, 좋아! ❤️"}
+              {noClickCount >= 3 ? (
+                <>
+                  제발 좋아해줘!
+                  <div className="w-5 h-5 inline-block">
+                    <CSSHeart />
+                  </div>
+                </>
+              ) : noClickCount >= 1 ? (
+                <>
+                  응, 좋아!
+                  <div className="w-5 h-5 inline-block">
+                    <CSSHeart />
+                  </div>
+                  <div className="w-5 h-5 inline-block">
+                    <CSSHeart />
+                  </div>
+                </>
+              ) : (
+                <>
+                  응, 좋아!
+                  <div className="w-5 h-5 inline-block">
+                    <CSSHeart />
+                  </div>
+                </>
+              )}
             </motion.button>
 
             <motion.button
@@ -240,10 +308,18 @@ export default function ValentinePage() {
               delay: i * 0.4,
               ease: "easeInOut",
             }}
-            className="absolute bottom-[-50px] text-pink-300 opacity-30 text-xl"
+            className="absolute bottom-[-50px] opacity-30"
             style={{ left: `${Math.random() * 100}%` }}
           >
-            🌸
+            <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6">
+              <path
+                d="M12 5.5c-1.5-2-4-2.5-6-1-2.5 2-2.5 5.5 0 8l6 6 6-6c2.5-2.5 2.5-6 0-8-2-1.5-4.5-1-6 1z"
+                fill="#ffc0cb"
+                stroke="#ffb6c1"
+                strokeWidth="1"
+              />
+              <circle cx="8" cy="10" r="1" fill="#fff" opacity="0.6" />
+            </svg>
           </motion.div>
         ))}
       </div>
