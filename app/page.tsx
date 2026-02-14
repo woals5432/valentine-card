@@ -10,14 +10,12 @@ const ExplosionParticle = ({
   dx,
   dy,
   rot,
-  icon,
 }: {
   x: number;
   y: number;
   dx: number;
   dy: number;
   rot: number;
-  icon: string;
 }) => (
   <motion.div
     initial={{ opacity: 1, scale: 0, x: 0, y: 0 }}
@@ -31,9 +29,7 @@ const ExplosionParticle = ({
     transition={{ duration: 1, ease: "easeOut" }}
     className="absolute text-3xl pointer-events-none z-50"
     style={{ left: x, top: y }}
-  >
-    {icon}
-  </motion.div>
+  ></motion.div>
 );
 
 export default function ValentinePage() {
@@ -51,7 +47,6 @@ export default function ValentinePage() {
       dx: number;
       dy: number;
       rot: number;
-      icon: string;
     }[]
   >([]);
 
@@ -62,7 +57,6 @@ export default function ValentinePage() {
     const clientY =
       "clientY" in e ? e.clientY : (e as React.TouchEvent).touches[0].clientY;
 
-    const icons = ["💋", "❤️", "💖", "🌸", "✨"];
     const newParticles = Array.from({ length: 25 }).map((_, i) => ({
       id: Date.now() + i,
       x: clientX,
@@ -144,7 +138,6 @@ export default function ValentinePage() {
           dx={p.dx}
           dy={p.dy}
           rot={p.rot}
-          icon={p.icon}
         />
       ))}
 
